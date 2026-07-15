@@ -55,6 +55,15 @@
     [self setupData];
     [self setupTableView];
     [self setupSpinner];
+    
+    // --- สั่งอุ่นเครื่อง (Warm-up) หน้า SettingsView รอไว้เงียบ ๆ ทันทีเมื่อเข้าหน้านี้ ---
+    Class presenterClass = NSClassFromString(@"SettingsViewPresenter");
+    if (presenterClass) {
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [presenterClass performSelector:@selector(warmUp)];
+        #pragma clang diagnostic pop
+    }
 }
 
 // Action เมื่อผู้ใช้แตะปุ่ม Info ขวาบน
